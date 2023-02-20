@@ -1,0 +1,59 @@
+{{ define "main" }}
+<!-- source: https://merakiui.com/components/blog -->
+<section class="bg-white dark:bg-gray-900">
+    <div class="container px-6 py-10 mx-auto">
+
+      <!-- Hero Section -->
+      <div class="relative overflow-hidden bg-no-repeat bg-cover" style="
+        background-position: 50%;
+        background-image: url('/images/mad_lab_hero.jpg');
+        height: 350px;
+      ">
+        <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"
+          style="background-color: rgba(0, 0, 0, 0.65)">
+          <div class="flex justify-center items-center h-full">
+            <div class="text-center px-6 md:px-12">
+              <h1 class="text-5xl text-white font-bold mt-0 mb-6">You are entering the Mad Lab!</h1>
+              <h3 class="text-3xl text-yellow-500 font-bold mb-8">Proceed with Caution</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of Hero -->
+    
+        <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
+
+            {{ range .Paginator.Pages }}
+
+            <div class="lg:flex">
+              {{ if (not (isset .Params "featured_image")) | or (eq .Params.featured_image "") }}
+              {{- $image := resources.Get "images/pinball001.jpg" -}}
+              <a href="{{ .Permalink }}">
+                <img class="object-cover object-center w-full h-56 rounded-lg lg:w-64" src="{{ ($image.Fill "256x224 q50 Center").RelPermalink }}" alt="">
+              </a>
+              {{ else }}
+              {{ $image := .Page.Resources.GetMatch (.Params.featured_image | default "images/pinball002.jpg") }}
+              <a href="{{ .Permalink }}">
+                <img class="object-cover object-center w-full h-56 rounded-lg lg:w-64" src="{{ .Params.featured_image }}" alt="">
+              </a>
+              {{ end }}
+
+                <div class="flex flex-col justify-between py-6 lg:mx-6">
+                    <a href="{{ .Permalink }}" class="text-xl font-semibold text-gray-800 hover:text-blue-700 dark:text-white ">
+                      {{ .Title }}
+                    </a>
+
+                    <div class="text-sm text-gray-500 dark:text-gray-300">
+                      {{ $readTime := cond (gt .ReadingTime 1) "Minutes" "Minute" }}
+                      <p class="text-sm text-gray-500 dark:text-gray-400">Reading Time: {{ .ReadingTime }} {{ $readTime }}. </p>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">Published: {{ .Date.Format "January 2, 2006" }}</p>
+                    </div>
+                </div>
+            </div>
+
+            {{ end }}
+        </div>
+        {{ partial "pagination.html" . }}
+    </div>
+</section>
+{{ end }}

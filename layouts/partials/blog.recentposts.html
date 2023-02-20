@@ -1,0 +1,71 @@
+<!-- source: https://merakiui.com/components/blog -->
+<section class="bg-white dark:bg-gray-900">
+    <div class="container px-6 py-10 mx-auto">
+        <div class="flex items-center justify-between">
+            <h1 class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">Recent Posts </h1>
+        </div>
+
+        <hr class="my-8 border-gray-200 dark:border-gray-700">
+
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+            {{ range first 6 (where .Site.RegularPages.ByDate.Reverse "Type" .Site.Params.frontBundle | default "blog")  }}
+            <div>
+                {{ if (not (isset .Params "featured_image")) | or (eq .Params.featured_image "") }}
+                  {{- $image := resources.Get "images/pinball001.jpg" -}}
+                <a href="{{ .Permalink }}">
+                <img class="object-cover object-center w-full h-64 rounded-lg lg:h-80" src="{{ ($image.Fill "390x320 q50 Center").RelPermalink }}" alt="">
+                </a>
+                {{ else }}
+                  {{ $image := .Page.Resources.GetMatch (.Params.featured_image | default "images/pinball002.jpg") }}
+                <a href="{{ .Permalink }}">
+                <img class="object-cover object-center w-full h-64 rounded-lg lg:h-80" src="{{ printf "%s/%s" .Permalink .Params.featured_image }}" alt="">
+                </a>
+                {{ end }}
+
+                <div class="mt-8">
+                    {{ if .Params.categories }}
+                      {{ range first 3 .Params.categories }}
+                    <span class="inline-block py-1 px-2 rounded bg-indigo-50 text-indigo-500 text-xs font-medium tracking-widest">
+                        {{ . }} 
+                    </span>
+                      {{ end }}
+                    {{ else }}
+                    <span class="inline-block py-1 px-2 rounded bg-indigo-50 text-indigo-500 text-xs font-medium tracking-widest">Uncategorized</span>
+                    {{ end }}
+
+                    <h1 class="mt-4 text-xl font-semibold text-gray-800 dark:text-white">
+                       <a href="{{ .Permalink }}">{{ .Title }}</a>
+                    </h1>
+
+                    <p class="mt-2 text-gray-500 dark:text-gray-400">
+                      {{ .Summary }}
+                    </p>
+
+                    <div class="flex items-center justify-between mt-4">
+                        <div>
+                            {{ $readTime := cond (gt .ReadingTime 1) "Minutes" "Minute" }}
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Reading Time: {{ .ReadingTime }} {{ $readTime }}. </p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Published: {{ .Date.Format "January 2, 2006" }}</p>
+                        </div>
+
+                        <a href="{{ .RelPermalink }}" class="text-blue-500 hover:text-blue-400">
+                          <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-semibold border dark:border-gray-700">Continue Reading >></button>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            {{ end }}
+
+            {{ if gt (len (where .Site.RegularPages.ByDate.Reverse "Type" .Site.Params.frontBundle | default "blog")) 6 }}
+            <div class="text-center mb-8">
+              <a class="px-8 py-3 rounded transition-colors text-gray-500 hover:text-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-white"
+              href="/blog" lang="{{ .Lang }}">
+              {{ i18n "Continue Reading ..." }}
+              </a>
+            </div>
+            {{ end }}
+
+        </div>
+    </div>
+</section>

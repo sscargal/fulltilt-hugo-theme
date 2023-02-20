@@ -1,0 +1,53 @@
+<header class="text-gray-600 body-font">
+  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    
+    <!-- Nav Menu -->
+    <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
+      {{ range .Site.Menus.main }}
+      <a class="mr-5 hover:text-gray-900" href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+      {{ end }}
+    </nav>
+    
+    <!-- Site Logo -->
+    <a class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0">
+      {{ if .Site.Params.logo }}
+      <img src="{{ .Site.Params.logo }}" alt="{{ .Site.Title }}" class="h-8 max-w-full" />
+      {{ else }}
+      {{ .Site.Title }}
+      {{ end }}
+    </a>
+
+    <!-- Search -->
+    <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
+      {{ if .Site.Params.enableSearch }}
+      <span class="open-search inline-block cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="10" cy="10" r="7" />
+          <line x1="21" y1="21" x2="15" y2="15" />
+        </svg>
+      </span>
+      {{ end }}
+
+      {{ if .Site.Params.darkModeToggle }}
+      <!-- Dark Mode Toggle -->
+      <span class="toggle-dark-mode inline-block cursor-pointer mx-5">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="12" cy="12" r="3" />
+          <line x1="12" y1="5" x2="12" y2="5.01" />
+          <line x1="17" y1="7" x2="17" y2="7.01" />
+          <line x1="19" y1="12" x2="19" y2="12.01" />
+          <line x1="17" y1="17" x2="17" y2="17.01" />
+          <line x1="12" y1="19" x2="12" y2="19.01" />
+          <line x1="7" y1="17" x2="7" y2="17.01" />
+          <line x1="5" y1="12" x2="5" y2="12.01" />
+          <line x1="7" y1="7" x2="7" y2="7.01" />
+        </svg>
+      </span>
+    {{ end }}
+    </div>
+  </div>
+</header>

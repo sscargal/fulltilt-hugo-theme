@@ -1,0 +1,13 @@
+name = "Full Tilt"
+license = "GNU GPLv3"
+licenselink = ""
+description = "Full Tilt is a clean and fast Hugo theme."
+homepage = "https://github.com/sscargal/fulltilt-hugo-theme"
+demosite = ""
+tags = ["Hugo", "theme", "blog", "modern", "responsive"]
+features = ["clean", "gallery", "minimal", "minimalist", "mobile", "personal", "responsive", "simple", "tailwind", "blog" ]
+min_version = "0.102.1"
+
+[author]
+  name = "Steve Scargall"
+  homepage = "https://stevescargall.com"

@@ -1,0 +1,40 @@
+{{ define "main" }}
+
+<main>
+    <div id="search-results"></div>
+    <div class="search-loading">Loading...</div>
+
+    <script id="search-result-template" type="text/x-js-template">
+    <div id="summary-${key}">
+        <div class="w-full px-8 py-4 my-5 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div class="flex items-center justify-between">
+              <span class="text-sm font-light text-gray-600 dark:text-gray-400">Mar 10, 2019</span>
+              <a class="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500" tabindex="0" role="button">${ isset categories } ${categories}<br/>${ end }</a>
+          </div>
+      
+          <div class="mt-2">
+              <a href="${link}" class="text-xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline" tabindex="0" role="link">${title}</a>
+              <p class="mt-2 text-gray-600 dark:text-gray-300">${snippet}</p>
+          </div>
+      
+          <div class="flex items-center justify-between mt-4">
+            <small>
+                ${ isset tags }Tags: ${tags}<br>${ end }
+            </small>
+          </div>
+
+          <div class="flex items-center justify-between mt-4">
+              <a href="${link}" class="text-blue-600 dark:text-blue-400 hover:underline" tabindex="0" role="link">Read more</a>
+          </div>
+        </div>
+    </div>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.6.2/fuse.min.js" integrity="sha512-Nqw1tH3mpavka9cQCc5zWWEZNfIPdOYyQFjlV1NvflEtQ0/XI6ZQ+H/D3YgJdqSUJlMLAPRj/oXlaHCFbFCjoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="/js/search.js"></script>
+</main>
+
+{{ end }}

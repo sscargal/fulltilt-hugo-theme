@@ -1,0 +1,40 @@
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
+
+  <title>
+  {{ if not .IsHome }}{{ .Title }} - {{ end }}{{ site.Title }}
+  </title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}" />
+  {{- if .Keywords }}
+  <meta name="keywords" content="{{ delimit .Keywords "," }}" />
+  {{ end -}}
+  {{- if .Params.Author }}
+  <meta name="author" content="{{ .Params.Author}}" />
+  {{ end -}}
+
+  {{- $styles := resources.Get "css/styles.css" | toCSS | postCSS (dict "config" "./assets/css/postcss.config.js") -}}
+  {{- if .Site.IsServer }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
+  {{ else }}
+  {{- $styles := $styles| minify | fingerprint | resources.PostProcess -}}
+  <link
+    rel="stylesheet"
+    href="{{ $styles.Permalink }}"
+    integrity="{{ $styles.Data.Integrity }}"
+  />
+  {{ end -}}
+
+  {{ template "_internal/opengraph.html" . }}
+  {{ template "_internal/twitter_cards.html" . }}
+  {{ template "_internal/schema.html" . }}
+
+  {{ if gt (len .Site.Languages) 1}}
+  <meta name="lang" content="{{ .Site.Language }}" />
+  {{ end }}
+</head>
