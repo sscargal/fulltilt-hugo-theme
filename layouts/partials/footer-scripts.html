@@ -1,7 +1,7 @@
-{{- with and (hugo.IsProduction) (.Site.Params.googleAnalytics) -}}
+{{ if and (hugo.IsProduction) (.Site.Params.googleAnalytics) }}
 <!-- Google Analytics 4 -->
 {{ partial "googleAnalytics4.html" . }}
-{{- end -}}
+{{ end }}
 
 {{ if .Site.Params.darkModeToggle }}
 <script>
