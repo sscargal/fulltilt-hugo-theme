@@ -5,7 +5,7 @@
     <div class="container px-6 py-3 mx-auto md:flex">
         <div class="flex items-center justify-between">
             <!-- Site Logo -->
-            <a href="{{ .Site.BaseURL }}">
+            <a href="{{ .Site.BaseURL }}" aria-label="Go Home">
             {{ if .Site.Params.logo }}
               <img src="{{ .Site.Params.logo }}" alt="{{ .Site.Title }}" class="h-8 max-w-full" height="32px" width="186px"/>
             {{ else }}

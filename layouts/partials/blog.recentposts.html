@@ -12,13 +12,13 @@
             <div>
                 {{ if (not (isset .Params "featured_image")) | or (eq .Params.featured_image "") }}
                   {{- $image := resources.Get "images/pinball001.jpg" -}}
-                <a href="{{ .Permalink }}">
+                <a href="{{ .Permalink }}" aria-label="{{ .Title }}">
                 <img class="object-cover object-center w-full h-64 rounded-lg lg:h-80" src="{{ ($image.Fill "390x320 jpg Center q60").RelPermalink }}" alt="">
                 </a>
                 {{ else }}
                   {{ $image := .Page.Resources.GetMatch (.Params.featured_image | default "images/pinball002.jpg") }}
                   {{ $image := $image.Fill "390x320 q50 Center" }}
-                <a href="{{ .Permalink }}">
+                <a href="{{ .Permalink }}" aria-label="{{ .Title }}">
                 <img class="object-cover object-center w-full h-64 rounded-lg lg:h-80" src="{{ ((.Page.Resources.GetMatch .Params.featured_image).Fit "390x320 jpg Center q60").RelPermalink }}" alt="">
                 </a>
                 {{ end }}
@@ -35,7 +35,7 @@
                     {{ end }}
 
                     <h1 class="mt-4 text-xl font-semibold text-gray-800 dark:text-white">
-                       <a href="{{ .Permalink }}">{{ .Title }}</a>
+                       <a href="{{ .Permalink }}" aria-label="{{ .Title }}">{{ .Title }}</a>
                     </h1>
 
                     <p class="mt-2 text-gray-500 dark:text-gray-400">
@@ -49,7 +49,7 @@
                             <p class="text-sm text-gray-500 dark:text-gray-400">Published: {{ .Date.Format "January 2, 2006" }}</p>
                         </div>
 
-                        <a href="{{ .RelPermalink }}" class="text-blue-500 hover:text-blue-400">
+                        <a href="{{ .RelPermalink }}" aria-label="{{ .Title }}" class="text-blue-500 hover:text-blue-400">
                           <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-semibold border dark:border-gray-700">Continue Reading >></button>
                         </a>
                     </div>
@@ -61,7 +61,7 @@
             {{ if gt (len (where .Site.RegularPages.ByDate.Reverse "Type" .Site.Params.frontBundle | default "blog")) 6 }}
             <div class="text-center mb-8">
               <a class="px-8 py-3 rounded transition-colors text-gray-500 hover:text-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-white"
-              href="/blog" lang="{{ .Lang }}">
+              href="/blog" aria-label="Continue Reading" lang="{{ .Lang }}">
               {{ i18n "Continue Reading ..." }}
               </a>
             </div>
