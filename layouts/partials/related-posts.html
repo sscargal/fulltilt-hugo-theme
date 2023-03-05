@@ -17,12 +17,12 @@
           {{ if (not (isset .Params "featured_image")) | or (eq .Params.featured_image "") }}
           {{- $image := resources.Get "images/pinball001.jpg" -}}
           <a href="{{ .Permalink }}">
-            <img class="object-cover object-center w-full h-64 rounded-lg lg:h-80" src="{{ ($image.Fill "392x256 q50 Center").RelPermalink }}" alt="">
+            <img class="object-cover object-center w-full h-64 rounded-lg lg:h-80" src="{{ ($image.Fill "392x256 q50 Center").RelPermalink }}" alt="" loading="lazy">
           </a>
           {{ else }}
           {{ $image := .Page.Resources.GetMatch (.Params.featured_image | default "images/pinball002.jpg") }}
           <a href="{{ .Permalink }}">
-            <img class="object-cover object-center w-full h-64 rounded-lg lg:h-80" src="{{ printf "%s/%s" .Permalink .Params.featured_image }}" alt="">
+            <img class="object-cover object-center w-full h-64 rounded-lg lg:h-80" src="{{ printf "%s/%s" .Permalink .Params.featured_image }}" alt="" loading="lazy">
           </a>
           {{ end }}
         </div>
